@@ -1,93 +1,117 @@
+<!-- BEGIN: Top HTML -->
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <script src="./js/third-party/aframe.min.js"></script>
-    <script src="./js/third-party/aframe-ar.js"></script>
-    <script src="./js/third-party/aframe-extras.loaders.min.js"></script>
-    <script src="./js/main.js" defer></script>
-    <script>
-      window.onload = function() {
-          AFRAME.registerComponent('videohandler', {
-              init: function () {
-                  var marker = this.el;
-  
-                  this.vid = document.querySelector("#noo-promo");
-  
-                  marker.addEventListener('markerFound', function () {
-                      this.vid.play();
-                  }.bind(this));
-  
-      marker.addEventListener('markerLost', function() {
-        this.vid.pause();
-        this.vid.currentTime = 0;
-      }.bind(this));
-              }
-          });
-      };
-  </script>
-    <link rel="stylesheet" href="./css/style.css" />
-  </head>
-  <body>
-    <div class="loading-wrapper">
-      <div class="loading-text">Loading...</div>
-    </div>
+<!-- include aframe -->
+<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+<!-- include ar.js -->
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
-    <div class="contact-buttons">
-      <a href="tel:+380949108425">
-        <img src="./images/phone-icon.svg" />
-      </a>
-      <a href="mailto:r@noosphere.com">
-        <img src="./images/email-icon.svg" />
-      </a>
-      <a href="https://www.facebook.com/ryabokon">
-        <img src="./images/facebook-icon.svg" />
-      </a>
-      <a href="https://noosphereglobal.com">
-        <img src="./images/website-icon.svg" />
-      </a>
-    </div>
+<!-- to load .ply model -->
+<script src="https://rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.loaders.min.js"></script>
 
-    <div class="play-video-button-wrapper" style="display: none">
-      <div class="play-video-button">
-        <div class="play-video-button-border">Play video</div>
-      </div>
-    </div>
+<!-- END: Top HTML -->
+<!-- BEGIN: Unity Compiled Events -->
+<script>
+var markerFound = 0;
+AFRAME.registerComponent('button', {
+init: function () {
+var elem = document.documentElement;
+var marker = document.querySelector("#marker");
+var fullbutton = document.querySelector("#fullscreen");
+marker.addEventListener("markerFound", function (evt) {
+markerFound = 1;
+});
+marker.addEventListener("markerLost", function (evt) {
+markerFound = 0;
+});
 
-    <a-scene
-      embedded
-      renderer="antialias: true; colorManagement: true; logarithmicDepthBuffer: true; physicallyCorrectLights: false;"
-      vr-mode-ui="enabled: false;"
-      arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: true;'>
-    >
-      <a-assets>
-        <video
-          webkit-playsinline
-          playsinline
-          src="./assets/video.mov"
-          loop="true"
-          id="noo-promo"
-        ></video>
-      </a-assets>
+        fullbutton.addEventListener("click", function (evt) {
+            if (fullscreen == 0) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                    /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+                    /* Chrome, Safari and Opera */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                    /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+            fullbutton.setAttribute("src", "../exit_fullscreen.png");
+            fullscreen = 1;
+            } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                }
+                fullbutton.setAttribute("src", "../fullscreen.png");
+                fullscreen = 0;
+            }
+        });
+},
+tick: function (totalTime, deltaTime) {
+var dTime = deltaTime / 1000;
 
-      <a-nft
-            videohandler
-            type='nft' url='./marker/track'
-            smooth="true" smoothCount="15" smoothTolerance="0.01" smoothThreshold="5"
-        >
-        <a-video
-          src="#noo-promo"
-          width="16"
-          height="9"
-          rotation="-90 0 0"
-          scale="0.27 0.27 0.27"
-          position="1.27 0 2.3"
-          visible="false"
-        ></a-video>
-      </a-nft>
+if (markerFound == 1) {
+}
 
-      <a-entity camera></a-entity>
-    </a-scene>
-  </body>
-</html>
 
+        function bezierEvaluate(p0, p1, p2, p3, t) {
+            var u = (1 - t);                
+            var uu = u * u;                
+            var uuu = u * u * u;               
+            var tt = t * t;               
+            var ttt = t * t * t;               
+            //B(t) = (1-t)^3*P0 3*(1-t)^2*t*P1 3*(1-t)*t^2*P2 t^3*P3 , 0 < t < 1               
+            return (uuu * p0 + 3 * uu * t * p1 + 3 * u * tt * p2 + ttt * p3);          
+        }          
+        function bezierPath(p0, p1, p2, p3, t) {               
+            return new THREE.Vector3(                   
+                bezierEvaluate(p0.x, p1.x, p2.x, p3.x, t),                   
+                bezierEvaluate(p0.y, p1.y, p2.y, p3.y, t),                   
+                bezierEvaluate(p0.z, p1.z, p2.z, p3.z, t)               
+            );           
+        }     
+    }
+});
+</script>
+<!-- END: Unity Compiled Events -->
+
+<!-- BEGIN: Middle HTML -->
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
+
+        <div style='position: absolute; bottom: 5px; left: 30px; width:100%; text-align: right; z-index: 1;'>
+            <input type="image" id="fullscreen" src="../fullscreen.png" style='position: absolute; bottom: 0px; right: 35px;'>
+            </input>
+        </div>
+
+        <!-- <a-scene embedded arjs='debugUIEnabled: false; sourceType: video; sourceUrl:../../data/videos/headtracking.mp4;'> -->
+            <a-scene embedded arjs='debugUIEnabled: false; sourceType: webcam' vr-mode-ui='enabled: false'>
+            <a-entity id="mouseCursor" cursor="rayOrigin: mouse" raycaster="objects: .intersectable; useWorldCoordinates: true;"></a-entity>
+<!-- END: Middle HTML -->
+
+<!-- BEGIN: Unity Compiled Assets -->
+<a-assets>
+</a-assets>
+<!-- END: Unity Compiled Assets -->
+<!-- BEGIN: Add Image Target (marker) -->
+<a-marker id="marker" preset="hiro" emitevents="true" button>
+<!-- END: Add Image Target (marker) -->
+
+<!-- BEGIN: Unity Compiled Objects -->
+<a-box width="0.1" height="0.1" depth="0.1" class="intersectable" position="0 0.171 0" rotation="0 0 0" color="#FFFFFF" 
+></a-box>
+<!-- END: Unity Compiled Objects -->
+
+<!-- BEGIN: Bottom HTML -->
+</a-marker>
+<a-entity camera></a-entity>
+</a-scene>
+</body>
+</html><!-- END: Bottom HTML -->
