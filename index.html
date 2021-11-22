@@ -1,55 +1,77 @@
-<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script src="./js/third-party/aframe.min.js"></script>
+    <script src="./js/third-party/aframe-ar.js"></script>
+    <script src="./js/third-party/aframe-extras.loaders.min.js"></script>
+    <script src="./js/main.js" defer></script>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="loading-wrapper">
+      <div class="loading-text">Loading...</div>
+    </div>
 
-<style>
-  .arjs-loader {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+    <div class="contact-buttons">
+      <a href="tel:+380949108425">
+        <img src="./images/phone-icon.svg" />
+      </a>
+      <a href="mailto:r@noosphere.com">
+        <img src="./images/email-icon.svg" />
+      </a>
+      <a href="https://www.facebook.com/ryabokon">
+        <img src="./images/facebook-icon.svg" />
+      </a>
+      <a href="https://noosphereglobal.com">
+        <img src="./images/website-icon.svg" />
+      </a>
+    </div>
 
-  .arjs-loader div {
-    text-align: center;
-    font-size: 1.25em;
-    color: white;
-  }
-</style>
+    <div class="play-video-button-wrapper" style="display: none">
+      <div class="play-video-button">
+        <div class="play-video-button-border">Play video</div>
+      </div>
+    </div>
 
-<body style="margin : 0px; overflow: hidden;">
-  <!-- minimal loader shown until image descriptors are loaded -->
-  <div class="arjs-loader">
-    <div>Loading, please wait...</div>
-  </div>
-  <a-scene
-    vr-mode-ui="enabled: false;"
-    renderer="logarithmicDepthBuffer: true;"
-    embedded
-    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
-  >
-    <!-- we use cors proxy to avoid cross-origin problems -->
-    <a-nft
-      type="nft"
-      url="https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/trex-image/trex"
-      smooth="true"
-      smoothCount="10"
-      smoothTolerance=".01"
-      smoothThreshold="5"
+    <a-scene
+      embedded
+      renderer="antialias: true; colorManagement: true; logarithmicDepthBuffer: true; physicallyCorrectLights: false;"
+      vr-mode-ui="enabled: false;"
+      arjs="detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
     >
-      <a-video
-        src="./assets/cube.mp4"
-        width="9"
-        height="9"
-        position="50 150 0"
+      <a-assets>
+        <video
+          webkit-playsinline
+          playsinline
+          src="./assets/cube.mp4"
+          loop="true"
+          id="cube"
+        ></video>
+      </a-assets>
+
+      <a-marker
+        type="barcode"
+        value="5"
+        emitevents
+        id="marker"
+        smooth="true"
+        smoothCount="10"
       >
-      </a-video>
-    </a-nft>
-    <a-entity camera></a-entity>
-  </a-scene>
-</body>
+        <a-video
+          src="#cube"
+          width="16"
+          height="9"
+          rotation="-90 0 0"
+          scale="0.27 0.27 0.27"
+          position="1.27 0 2.3"
+          visible="false"
+        ></a-video>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
+
+
