@@ -6,6 +6,26 @@
     <script src="./js/third-party/aframe-ar.js"></script>
     <script src="./js/third-party/aframe-extras.loaders.min.js"></script>
     <script src="./js/main.js" defer></script>
+    <script>
+      window.onload = function() {
+          AFRAME.registerComponent('videohandler', {
+              init: function () {
+                  var marker = this.el;
+  
+                  this.vid = document.querySelector("#noo-promo");
+  
+                  marker.addEventListener('markerFound', function () {
+                      this.vid.play();
+                  }.bind(this));
+  
+      marker.addEventListener('markerLost', function() {
+        this.vid.pause();
+        this.vid.currentTime = 0;
+      }.bind(this));
+              }
+          });
+      };
+  </script>
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
