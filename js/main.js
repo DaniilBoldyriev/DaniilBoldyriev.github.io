@@ -1,5 +1,5 @@
 const marker = document.getElementById("marker");
-const promoVideo = document.getElementById("noo-promo");
+const promoVideo = document.getElementById("vid");
 const videoButton = document.querySelector(".play-video-button-wrapper");
 const videoEntity = document.querySelector("a-video");
 
