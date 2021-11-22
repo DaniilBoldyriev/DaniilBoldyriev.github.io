@@ -44,20 +44,17 @@
         <video
           webkit-playsinline
           playsinline
-          src="./assets/coube.mp4"
+          src="./assets/IMG_4716.mp4"
           loop="true"
           id="noo-promo"
         ></video>
       </a-assets>
 
-      <a-marker
-        type="barcode"
-        value="5"
-        emitevents
-        id="marker"
-        smooth="true"
-        smoothCount="10"
-      >
+      <a-nft
+            videohandler
+            type='nft' url='./marker/track'
+            smooth="true" smoothCount="15" smoothTolerance="0.01" smoothThreshold="5"
+        >
         <a-video
           src="#noo-promo"
           width="16"
@@ -67,7 +64,7 @@
           position="1.27 0 2.3"
           visible="false"
         ></a-video>
-      </a-marker>
+      </a-nft>
 
       <a-entity camera></a-entity>
     </a-scene>
