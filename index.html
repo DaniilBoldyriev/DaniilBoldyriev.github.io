@@ -68,17 +68,20 @@
         <div class="play-video-button-border">Play video</div>
       </div>
     </div>
+
     <a-scene
         vr-mode-ui="enabled: false;"
         renderer='antialias: true; alpha: true; precision: mediump;'
         embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: true;'>
 
         <a-assets>
+          <video
           webkit-playsinline
           playsinline
           src="./assets/video.mov"
           loop="true"
           id="vid"
+          ></video>
         </a-assets>
 
         <a-nft
