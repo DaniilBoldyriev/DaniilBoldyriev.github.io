@@ -19,6 +19,7 @@ videoButton.addEventListener("click", () => {
 
 marker.addEventListener("markerFound", () => {
   showVideoButton();
+  window.open("https://www.google.com");
 });
 
 marker.addEventListener("markerLost", () => {
