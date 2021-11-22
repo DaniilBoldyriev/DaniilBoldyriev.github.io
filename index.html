@@ -44,9 +44,9 @@
         <video
           webkit-playsinline
           playsinline
-          src="./assets/cube.mp4"
+          src="./assets/coube.mp4"
           loop="true"
-          id="cube"
+          id="coube"
         ></video>
       </a-assets>
 
@@ -58,8 +58,16 @@
         smooth="true"
         smoothCount="10"
       >
+        <a-gltf-model
+          scale="2 2 2"
+          position="0 0 -0.3"
+          rotation="-90 0 0"
+          src="./assets/model.gltf"
+          animation-mixer
+        >
+        </a-gltf-model>
         <a-video
-          src="#cube"
+          src="#coube"
           width="16"
           height="9"
           rotation="-90 0 0"
@@ -73,5 +81,4 @@
     </a-scene>
   </body>
 </html>
-
 
