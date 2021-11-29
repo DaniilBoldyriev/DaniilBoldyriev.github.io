@@ -42,7 +42,7 @@
 
               marker.addEventListener('markerFound', function () {
                 showVideoButton();
-              }.bind(this));
+              });
 
   marker.addEventListener('markerLost', function() {
     this.vid.pause();
@@ -59,7 +59,7 @@
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div>
-  
+
   <div class="play-video-button-wrapper" style="display: none">
     <div class="play-video-button">
       <div class="play-video-button-border">Play video</div>
