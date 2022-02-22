@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="loading-wrapper">
+      <div class="loading-text">Loading...</div>
+    </div>
+
+    <div class="contact-buttons">
+      <a href="tel:+380949108425">
+        <img src="./images/phone-icon.svg" />
+      </a>
+      <a href="mailto:r@noosphere.com">
+        <img src="./images/email-icon.svg" />
+      </a>
+      <a href="https://www.facebook.com/ryabokon">
+        <img src="./images/facebook-icon.svg" />
+      </a>
+      <a href="https://noosphereglobal.com">
+        <img src="./images/website-icon.svg" />
+      </a>
+    </div>
+
+    <div class="play-video-button-wrapper" style="display: none">
+      <div class="play-video-button">
+        <div class="play-video-button-border">Play video</div>
+      </div>
+    </div>
+
+    <a-scene mindar-image="imageTargetSrc: ./marker/targets.mind;" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <video
+          webkit-playsinline
+          playsinline
+          src="./assets/video.mov"
+          loop="true"
+          id="vid"
+        ></video>
+      </a-assets>
+
+     
+        <a-video
+          src="#vid"
+          width="16"
+          height="9"
+          rotation="-90 0 0"
+          scale="0.27 0.27 0.27"
+          position="1.27 0 2.3"
+          visible="false"
+        ></a-video>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
